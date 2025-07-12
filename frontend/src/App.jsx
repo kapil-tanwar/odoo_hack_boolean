@@ -1,11 +1,8 @@
-import React from 'react'
+import React from 'react';
+import ProductDetail from './components/ProductDetail.jsx';
 
 const App = () => {
-  return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
-  )
-}
+  return <ProductDetail />;
+};
 
-export default App
+export default App;
