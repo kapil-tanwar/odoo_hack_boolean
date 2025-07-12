@@ -1,0 +1,26 @@
+.product-description-container {
+  background: #edf6f9;
+  border: 0.125rem solid #83c5be;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  color: #006d77;
+}
+.product-description-container label {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #006d77;
+}
+.product-description-textarea {
+  width: 100%;
+  background: #fff;
+  color: #006d77;
+  border: 0.1rem solid #83c5be;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 6rem;
+  max-height: 20rem;
+  box-sizing: border-box;
+} 

@@ -1,10 +1,9 @@
 import React from 'react'
+import ProductDetailPage from './components/product_detail/ProductDetailPage'
 
 const App = () => {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <ProductDetailPage />
   )
 }
 

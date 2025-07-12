@@ -1,0 +1,15 @@
+.availability-btn {
+  background: #ffddd2;
+  color: #006d77;
+  border: 2px solid #e29578;
+  border-radius: 10px;
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background 0.2s, color 0.2s;
+}
+.availability-btn:hover {
+  background: #e29578;
+  color: #fff;
+} 

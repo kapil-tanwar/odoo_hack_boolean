@@ -1,0 +1,27 @@
+.add-images-container {
+  background: #edf6f9;
+  border-radius: 1.5rem;
+  min-height: 18rem;
+  width: fit-content;
+  max-width: 28rem;
+  display: flex;
+  font-size: 1.2rem;
+  color: #006d77;
+  box-shadow: none;
+  transition: box-shadow 0.3s;
+}
+.add-images-container:hover {
+  box-shadow: 0 8px 32px #006d7733;
+}
+.add-images-img {
+  height: 100%;
+  max-height: 18rem;
+  max-width: 24rem;
+  border-radius: 1.5rem;
+  object-fit: cover;
+  box-shadow: none;
+  transition: box-shadow 0.3s;
+}
+.add-images-container:hover .add-images-img {
+  box-shadow: 0 8px 32px #006d7755;
+} 

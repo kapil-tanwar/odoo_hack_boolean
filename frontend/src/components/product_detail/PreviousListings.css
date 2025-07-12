@@ -1,0 +1,20 @@
+.previous-listings-container {
+  margin-top: 16px;
+}
+.previous-listings-label {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: #edf6f9;
+  font-weight: 600;
+}
+.previous-listings-grid {
+  display: flex;
+  gap: 16px;
+}
+.previous-listing-item {
+  background: #edf6f9;
+  border: 2px solid #83c5be;
+  border-radius: 16px;
+  width: 120px;
+  height: 150px;
+} 
