@@ -14,7 +14,7 @@ const Navbar = ({ minimal }) => {
         <span className="navbar-title">ReWear</span>
       </div>
       {!minimal && (
-        <>
+        <div className="navbar-content-right">
           <div className="navbar-center">
             {categories.map((cat) => (
               <a href="#" className="navbar-link" key={cat}>{cat}</a>
@@ -35,7 +35,7 @@ const Navbar = ({ minimal }) => {
               )}
             </div>
           </div>
-        </>
+        </div>
       )}
     </nav>
   );

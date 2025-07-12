@@ -1,5 +1,6 @@
 import React from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import Navbar from './components/Navbar.jsx'
 import LoginPage from './components/LoginPage.jsx'
 
 const Home = () => (
@@ -10,13 +11,18 @@ const Home = () => (
 )
 
 const App = () => {
+  const location = useLocation();
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
   return (
-    <Routes>
-      <Route path="/login" element={<LoginPage mode="login" />} />
-      <Route path="/signup" element={<LoginPage mode="signup" />} />
-      <Route path="/" element={<Home />} />
-      <Route path="*" element={<Navigate to="/login" />} />
-    </Routes>
+    <>
+      <Navbar minimal={isAuthPage} />
+      <Routes>
+        <Route path="/login" element={<LoginPage mode="login" />} />
+        <Route path="/signup" element={<LoginPage mode="signup" />} />
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </>
   )
 }
 
