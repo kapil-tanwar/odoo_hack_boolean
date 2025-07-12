@@ -20,6 +20,14 @@ const LoginPage = ({ mode }) => {
     password: ""
   });
 
+  const [error, setError] = useState("");
+  const [showReset, setShowReset] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetSent, setResetSent] = useState(false);
+  const [resetToken, setResetToken] = useState("");
+  const [resetPassword, setResetPassword] = useState("");
+  const [resetSuccess, setResetSuccess] = useState(false);
+
   useEffect(() => {
     setIsActive(mode === "signup");
   }, [mode]);
@@ -36,20 +44,76 @@ const LoginPage = ({ mode }) => {
     navigate("/login");
   };
 
-  const handleSignupSubmit = (e) => {
+  const handleSignupSubmit = async (e) => {
     e.preventDefault();
-    // For now, just redirect to landing page
-    // In a real app, you would validate and send to backend
-    console.log("Signup form submitted:", signupForm);
-    navigate("/landing");
+    setError("");
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(signupForm),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Signup failed");
+      localStorage.setItem("token", data.token);
+      navigate("/landing");
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
-  const handleSigninSubmit = (e) => {
+  const handleSigninSubmit = async (e) => {
     e.preventDefault();
-    // For now, just redirect to landing page
-    // In a real app, you would validate and send to backend
-    console.log("Signin form submitted:", signinForm);
-    navigate("/landing");
+    setError("");
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(signinForm),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Login failed");
+      localStorage.setItem("token", data.token);
+      navigate("/landing");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    setError("");
+    setResetSent(false);
+    try {
+      const res = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: resetEmail }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to send reset email");
+      setResetSent(true);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    setError("");
+    setResetSuccess(false);
+    try {
+      const res = await fetch(`/api/auth/reset-password/${resetToken}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: resetPassword }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to reset password");
+      setResetSuccess(true);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   const handleSignupChange = (e) => {
@@ -73,12 +137,6 @@ const LoginPage = ({ mode }) => {
         <div className="form-container sign-up">
           <form onSubmit={handleSignupSubmit}>
             <h1>Create Account</h1>
-            <div className="social-icons">
-              <a href="#" className="icon"><i className="fa-brands fa-google"></i></a>
-              <a href="#" className="icon"><i className="fa-brands fa-facebook-f"></i></a>
-              <a href="#" className="icon"><i className="fa-brands fa-github"></i></a>
-              <a href="#" className="icon"><i className="fa-brands fa-linkedin-in"></i></a>
-            </div>
             <span>or use your email for registration</span>
             <input 
               type="text" 
@@ -101,6 +159,7 @@ const LoginPage = ({ mode }) => {
               value={signupForm.password}
               onChange={handleSignupChange}
             />
+            {error && <div className="error-message">{error}</div>}
             <button type="submit">Sign Up</button>
           </form>
         </div>
@@ -108,12 +167,6 @@ const LoginPage = ({ mode }) => {
         <div className="form-container sign-in">
           <form onSubmit={handleSigninSubmit}>
             <h1>Sign In</h1>
-            <div className="social-icons">
-              <a href="#" className="icon"><i className="fa-brands fa-google"></i></a>
-              <a href="#" className="icon"><i className="fa-brands fa-facebook-f"></i></a>
-              <a href="#" className="icon"><i className="fa-brands fa-github"></i></a>
-              <a href="#" className="icon"><i className="fa-brands fa-linkedin-in"></i></a>
-            </div>
             <span>or use your email password</span>
             <input 
               type="email" 
@@ -129,7 +182,8 @@ const LoginPage = ({ mode }) => {
               value={signinForm.password}
               onChange={handleSigninChange}
             />
-            <a href="#">Forget Your Password?</a>
+            <a href="#" onClick={() => setShowReset(true)}>Forget Your Password?</a>
+            {error && <div className="error-message">{error}</div>}
             <button type="submit">Sign In</button>
           </form>
         </div>
@@ -149,6 +203,26 @@ const LoginPage = ({ mode }) => {
           </div>
         </div>
       </div>
+      {showReset && (
+        <div className="reset-modal">
+          <form onSubmit={handleForgotPassword}>
+            <h2>Reset Password</h2>
+            <input type="email" placeholder="Email" value={resetEmail} onChange={e => setResetEmail(e.target.value)} required />
+            <button type="submit">Send Reset Email</button>
+            {resetSent && <div>Reset email sent! Check your inbox.</div>}
+            {error && <div className="error-message">{error}</div>}
+            <button type="button" onClick={() => setShowReset(false)}>Close</button>
+          </form>
+          <form onSubmit={handleResetPassword} style={{marginTop: 16}}>
+            <h2>Enter Reset Token</h2>
+            <input type="text" placeholder="Token" value={resetToken} onChange={e => setResetToken(e.target.value)} required />
+            <input type="password" placeholder="New Password" value={resetPassword} onChange={e => setResetPassword(e.target.value)} required />
+            <button type="submit">Reset Password</button>
+            {resetSuccess && <div>Password reset! You can now log in.</div>}
+            {error && <div className="error-message">{error}</div>}
+          </form>
+        </div>
+      )}
     </>
   );
 };

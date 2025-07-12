@@ -1,12 +1,33 @@
 import { Search, Plus, Upload } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import "./ProductDetail.css";
 
 export default function ProductDetail() {
-  const [description, setDescription] = useState(
-    "Click here to add your product description. Describe the item's condition, features, and any important details buyers should know."
-  );
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [description, setDescription] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+  const fileInputRef = useRef();
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`/api/products/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        setProduct(data);
+        setDescription(data.description);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError("Failed to load product");
+        setLoading(false);
+      });
+  }, [id]);
 
   const handleDescriptionClick = () => {
     setIsEditing(true);
@@ -19,6 +40,66 @@ export default function ProductDetail() {
   const handleDescriptionBlur = () => {
     setIsEditing(false);
   };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploading(true);
+    setUploadError("");
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        body: formData,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Upload failed");
+      // Update product images in backend
+      const newImages = [...(product.images || []), data.filePath];
+      const updateRes = await fetch(`/api/products/${id}/images`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ images: newImages }),
+      });
+      const updateData = await updateRes.json();
+      if (!updateRes.ok) throw new Error(updateData.message || "Failed to update images");
+      setProduct(updateData);
+    } catch (err) {
+      setUploadError(err.message);
+    }
+    setUploading(false);
+  };
+
+  const handleDescriptionSave = async () => {
+    setUploading(true);
+    setUploadError("");
+    try {
+      const res = await fetch(`/api/products/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ description }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to update description");
+      setProduct(data);
+      setIsEditing(false);
+    } catch (err) {
+      setUploadError(err.message);
+    }
+    setUploading(false);
+  };
+
+  if (loading) return <div>Loading product...</div>;
+  if (error) return <div className="error-message">{error}</div>;
+  if (!product) return <div>Product not found.</div>;
 
   return (
     <div className="product-detail-container">
@@ -45,16 +126,28 @@ export default function ProductDetail() {
           <div className="add-images-content">
             <div className="main-image-container">
               <img
-                src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop&crop=center"
+                src={product.images && product.images[0] ? product.images[0] : "https://via.placeholder.com/400x300?text=No+Image"}
                 alt="Main Product Image"
                 className="main-upload-image"
               />
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                ref={fileInputRef}
+                onChange={handleImageUpload}
+              />
             </div>
             <div className="add-image-actions">
-              <button className="add-image-btn">
+              <button
+                className="add-image-btn"
+                onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                disabled={uploading}
+              >
                 <Upload size={20} />
-                <span>Upload Images</span>
+                <span>{uploading ? "Uploading..." : "Upload Images"}</span>
               </button>
+              {uploadError && <div className="error-message">{uploadError}</div>}
               <p className="image-hint">Add up to 10 images (JPG, PNG)</p>
             </div>
           </div>
@@ -63,19 +156,25 @@ export default function ProductDetail() {
         {/* Right Section - Add Product Description */}
         <div className="add-description-section">
           <div className="description-header">
-            <h2 className="description-title">Add Product Description</h2>
-            <button className="available-swap-btn">Available/Swap</button>
+            <h2 className="description-title">{product.title}</h2>
+            <button className="available-swap-btn">{product.status}</button>
           </div>
           <div className="description-content">
             {isEditing ? (
-              <textarea
-                value={description}
-                onChange={handleDescriptionChange}
-                onBlur={handleDescriptionBlur}
-                className="description-textarea"
-                placeholder="Describe your product here..."
-                autoFocus
-              />
+              <>
+                <textarea
+                  value={description}
+                  onChange={handleDescriptionChange}
+                  onBlur={handleDescriptionBlur}
+                  className="description-textarea"
+                  placeholder="Describe your product here..."
+                  autoFocus
+                />
+                <button onClick={handleDescriptionSave} disabled={uploading} className="btn-primary" style={{marginTop:8}}>
+                  {uploading ? "Saving..." : "Save Description"}
+                </button>
+                {uploadError && <div className="error-message">{uploadError}</div>}
+              </>
             ) : (
               <div
                 className="description-display"
