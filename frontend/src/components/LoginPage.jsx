@@ -7,6 +7,19 @@ const LoginPage = ({ mode }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Form state for signup
+  const [signupForm, setSignupForm] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
+
+  // Form state for signin
+  const [signinForm, setSigninForm] = useState({
+    email: "",
+    password: ""
+  });
+
   useEffect(() => {
     setIsActive(mode === "signup");
   }, [mode]);
@@ -23,12 +36,42 @@ const LoginPage = ({ mode }) => {
     navigate("/login");
   };
 
+  const handleSignupSubmit = (e) => {
+    e.preventDefault();
+    // For now, just redirect to landing page
+    // In a real app, you would validate and send to backend
+    console.log("Signup form submitted:", signupForm);
+    navigate("/landing");
+  };
+
+  const handleSigninSubmit = (e) => {
+    e.preventDefault();
+    // For now, just redirect to landing page
+    // In a real app, you would validate and send to backend
+    console.log("Signin form submitted:", signinForm);
+    navigate("/landing");
+  };
+
+  const handleSignupChange = (e) => {
+    setSignupForm({
+      ...signupForm,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSigninChange = (e) => {
+    setSigninForm({
+      ...signinForm,
+      [e.target.name]: e.target.value
+    });
+  };
+
   return (
     <>
       <Navbar minimal />
       <div className={`container ${isActive ? "active" : ""}`} id="container">
         <div className="form-container sign-up">
-          <form>
+          <form onSubmit={handleSignupSubmit}>
             <h1>Create Account</h1>
             <div className="social-icons">
               <a href="#" className="icon"><i className="fa-brands fa-google"></i></a>
@@ -37,15 +80,33 @@ const LoginPage = ({ mode }) => {
               <a href="#" className="icon"><i className="fa-brands fa-linkedin-in"></i></a>
             </div>
             <span>or use your email for registration</span>
-            <input type="text" placeholder="Name" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+            <input 
+              type="text" 
+              placeholder="Name" 
+              name="name"
+              value={signupForm.name}
+              onChange={handleSignupChange}
+            />
+            <input 
+              type="email" 
+              placeholder="Email" 
+              name="email"
+              value={signupForm.email}
+              onChange={handleSignupChange}
+            />
+            <input 
+              type="password" 
+              placeholder="Password" 
+              name="password"
+              value={signupForm.password}
+              onChange={handleSignupChange}
+            />
             <button type="submit">Sign Up</button>
           </form>
         </div>
 
         <div className="form-container sign-in">
-          <form>
+          <form onSubmit={handleSigninSubmit}>
             <h1>Sign In</h1>
             <div className="social-icons">
               <a href="#" className="icon"><i className="fa-brands fa-google"></i></a>
@@ -54,8 +115,20 @@ const LoginPage = ({ mode }) => {
               <a href="#" className="icon"><i className="fa-brands fa-linkedin-in"></i></a>
             </div>
             <span>or use your email password</span>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+            <input 
+              type="email" 
+              placeholder="Email" 
+              name="email"
+              value={signinForm.email}
+              onChange={handleSigninChange}
+            />
+            <input 
+              type="password" 
+              placeholder="Password" 
+              name="password"
+              value={signinForm.password}
+              onChange={handleSigninChange}
+            />
             <a href="#">Forget Your Password?</a>
             <button type="submit">Sign In</button>
           </form>

@@ -1,8 +1,25 @@
 import React, { useState } from "react";
 import "./AdminPanel.css";
+import { useNavigate } from "react-router-dom";
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState("users");
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Add logout logic here
+    navigate('/login');
+  };
+
+  const handleHome = () => {
+    navigate('/landing');
+  };
+
+  const handleSettings = () => {
+    // Navigate to settings page or show settings modal
+    console.log('Settings clicked');
+  };
 
   const users = [
     {
@@ -155,7 +172,7 @@ const AdminPanel = () => {
             </div>
 
             {/* Profile */}
-            <div className="profile-icon">
+            <div className="profile-icon" onClick={() => setShowProfileDropdown(v => !v)} style={{cursor: 'pointer', position: 'relative'}}>
               <svg
                 width="20"
                 height="20"
@@ -167,6 +184,13 @@ const AdminPanel = () => {
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
+              {showProfileDropdown && (
+                <div className="navbar-dropdown" style={{right: 0, left: 'auto', top: '110%'}}>
+                  <a href="#" onClick={handleHome}>Home</a>
+                  <a href="#" onClick={handleSettings}>Settings</a>
+                  <a href="#" onClick={handleLogout}>Logout</a>
+                </div>
+              )}
             </div>
           </div>
         </div>
