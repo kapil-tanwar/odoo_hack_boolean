@@ -1,0 +1,25 @@
+.loading-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.loading-logo {
+  width: 100px;
+  height: 28px;
+  object-fit: contain;
+  background: var(--alice-blue);
+  border-radius: 8px;
+  display: block;
+}
+
+.loading-profile {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--tiffany-blue);
+  display: block;
+} 
