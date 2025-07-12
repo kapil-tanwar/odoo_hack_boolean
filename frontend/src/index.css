@@ -1,9 +1,10 @@
+<<<<<<<<< Temporary merge branch 1
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
+=========
 :root {
   --caribbean-current: hsla(185, 100%, 23%, 1);
   --tiffany-blue: hsla(174, 36%, 64%, 1);
@@ -11,6 +12,12 @@
   --pale-dogwood: hsla(15, 100%, 91%, 1);
   --atomic-tangerine: hsla(16, 65%, 68%, 1);
   --form-bg: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -470,3 +477,4 @@ a {
     width: 90px;
   }
 }
+>>>>>>>>> Temporary merge branch 2
