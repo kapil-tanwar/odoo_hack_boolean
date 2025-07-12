@@ -1,0 +1,448 @@
+/* Color Palette Variables */
+:root {
+    --caribbean-current: #006d77;
+    --tiffany-blue: #83c5be;
+    --alice-blue: #edf6f9;
+    --pale-dogwood: #ffddd2;
+    --atomic-tangerine: #e29578;
+  }
+  
+  /* Reset and Base Styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, sans-serif;
+    line-height: 1.5;
+  }
+  
+  /* Admin Panel Container */
+  .admin-panel {
+    min-height: 100vh;
+    background: linear-gradient(
+      to right,
+      var(--caribbean-current),
+      var(--tiffany-blue),
+      var(--alice-blue),
+      var(--pale-dogwood),
+      var(--atomic-tangerine)
+    );
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px;
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    gap: 16px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #374151;
+    margin: 0;
+  }
+  
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  /* Search */
+  .search-container {
+    position: relative;
+    flex: 1;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .search-input {
+    width: 100%;
+    min-width: 300px;
+    padding: 8px 16px 8px 40px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  
+  .search-input:focus {
+    ring: 2px;
+    ring-color: rgba(0, 109, 119, 0.5);
+  }
+  
+  /* Profile Icon */
+  .profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(226, 149, 120, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .profile-icon svg {
+    color: white;
+  }
+  
+  /* Navigation Tabs */
+  .nav-tabs {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  
+  .nav-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4px);
+    color: var(--caribbean-current);
+    border: 1px solid rgba(0, 109, 119, 0.2);
+  }
+  
+  .nav-tab:hover {
+    background: rgba(255, 255, 255, 0.6);
+  }
+  
+  .nav-tab.active {
+    background: var(--caribbean-current);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-tab svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  /* Content Section */
+  .content-section {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 24px;
+  }
+  
+  /* Items List */
+  .items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .item-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    border-radius: 8px;
+    gap: 16px;
+  }
+  
+  .item-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+  }
+  
+  .item-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .item-avatar svg {
+    color: #6b7280;
+  }
+  
+  .item-avatar.order-icon {
+    background: rgba(131, 197, 190, 0.3);
+  }
+  
+  .item-avatar.order-icon svg {
+    color: var(--caribbean-current);
+  }
+  
+  .item-avatar.listing-icon {
+    background: rgba(226, 149, 120, 0.3);
+  }
+  
+  .item-avatar.listing-icon svg {
+    color: var(--atomic-tangerine);
+  }
+  
+  .item-details {
+    min-width: 0;
+    flex: 1;
+  }
+  
+  .item-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 4px;
+  }
+  
+  .item-email {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 2px;
+  }
+  
+  .item-meta {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-bottom: 2px;
+  }
+  
+  /* Tags */
+  .tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  
+  .tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    background: rgba(131, 197, 190, 0.2);
+    color: var(--caribbean-current);
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  
+  /* Status Badges */
+  .status-badge {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  
+  .status-pending {
+    background: rgba(251, 191, 36, 0.2);
+    color: #d97706;
+  }
+  
+  .status-accepted {
+    background: rgba(34, 197, 94, 0.2);
+    color: #16a34a;
+  }
+  
+  .status-completed {
+    background: rgba(34, 197, 94, 0.3);
+    color: #15803d;
+  }
+  
+  .status-rejected {
+    background: rgba(239, 68, 68, 0.2);
+    color: #dc2626;
+  }
+  
+  .status-available {
+    background: rgba(34, 197, 94, 0.2);
+    color: #16a34a;
+  }
+  
+  .status-swapped {
+    background: rgba(168, 85, 247, 0.2);
+    color: #7c3aed;
+  }
+  
+  /* Item Actions */
+  .item-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .btn-edit,
+  .btn-delete {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-edit {
+    background: rgba(226, 149, 120, 0.8);
+    color: white;
+  }
+  
+  .btn-edit:hover {
+    background: var(--atomic-tangerine);
+  }
+  
+  .btn-delete {
+    background: #ef4444;
+    color: white;
+  }
+  
+  .btn-delete:hover {
+    background: #dc2626;
+  }
+  
+  .btn-primary {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--caribbean-current);
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background: rgba(0, 109, 119, 0.8);
+  }
+  
+  .btn-secondary {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(131, 197, 190, 0.6);
+    color: var(--caribbean-current);
+  }
+  
+  .btn-secondary:hover {
+    background: var(--tiffany-blue);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .header-controls {
+      width: 100%;
+    }
+  
+    .search-input {
+      min-width: 0;
+    }
+  
+    .nav-tabs {
+      flex-direction: column;
+    }
+  
+    .nav-tab {
+      justify-content: center;
+    }
+  
+    .item-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .item-actions {
+      align-self: flex-end;
+    }
+  
+    .item-details {
+      width: 100%;
+    }
+  
+    .item-name,
+    .item-email {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      padding: 16px 12px;
+    }
+  
+    .content-section {
+      padding: 16px;
+    }
+  
+    .title {
+      font-size: 20px;
+    }
+  
+    .section-title {
+      font-size: 18px;
+    }
+  }
+  
