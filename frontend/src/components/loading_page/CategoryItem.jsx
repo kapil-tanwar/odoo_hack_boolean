@@ -1,10 +1,10 @@
 import React from 'react';
-import './CategoryList.css';
+import './CategoryItem.css';
 
-const CategoryItem = ({ src, alt }) => (
-  <div className="loading-category">
-    <img src={src} alt={alt} className="category-img" />
-  </div>
+const CategoryItem = ({ alt }) => (
+  <button className="loading-category category-btn" onClick={() => alert(`Category: ${alt}`)} type="button">
+    {alt}
+  </button>
 );
 
 export default CategoryItem; 

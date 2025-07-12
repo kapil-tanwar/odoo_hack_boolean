@@ -5,12 +5,12 @@ import category2 from '../../assets/category2.png';
 import CategoryItem from './CategoryItem';
 
 const categories = [
-  { src: category1, alt: "Category 1" },
-  { src: category2, alt: "Category 2" },
-  { src: category1, alt: "Category 3" },
-  { src: category2, alt: "Category 4" },
-  { src: category1, alt: "Category 5" },
-  { src: category2, alt: "Category 6" },
+  { src: category1, alt: "Tops" },
+  { src: category2, alt: "Bottoms" },
+  { src: category1, alt: "Dresses" },
+  { src: category2, alt: "Outerwear" },
+  { src: category1, alt: "Footwear" },
+  { src: category2, alt: "Accessories" },
 ];
 
 const CategoryList = () => (
