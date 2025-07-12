@@ -1,11 +1,6 @@
-import React from 'react'
+import React from "react";
+import AdminPanel from "./components/AdminPanel";
 
-const App = () => {
-  return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
-  )
+export default function App() {
+  return <AdminPanel />;
 }
-
-export default App
