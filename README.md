@@ -2,13 +2,13 @@
 
 ## Team Information
 
-**Name:** Kapil Tanwar (Team Leader) 
+**Name:** Kapil Tanwar (Team Leader)     
 **Email:** kapiltanwar340@gmail.com
 
 **Name:** Keshav Agrawal  
 **Email:** keshavagrawal273@gmail.com
 
-**Name:** Ankur Kumar Verma 
+**Name:** Ankur Kumar Verma       
 **Email:** ankurvr988@gmail.com
 
 **Name:** Rishabh Mirchandani  
