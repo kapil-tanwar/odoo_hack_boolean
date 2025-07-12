@@ -1,15 +1,40 @@
 .availability-btn {
-  background: #ffddd2;
-  color: #006d77;
-  border: 2px solid #e29578;
-  border-radius: 10px;
-  padding: 12px 32px;
-  font-size: 1.1rem;
+  --color: #e29578;
+  font-family: inherit;
+  display: inline-block;
+  width: 8em;
+  height: 2.6em;
+  line-height: 2.5em;
+  overflow: hidden;
   cursor: pointer;
-  margin-top: 16px;
-  transition: background 0.2s, color 0.2s;
+  margin: 20px auto 0 auto;
+  font-size: 1.1rem;
+  z-index: 1;
+  color: var(--color);
+  border: 2px solid var(--color);
+  border-radius: 6px;
+  position: relative;
+  background: none;
+  transition: color 0.3s;
+}
+.availability-btn::before {
+  position: absolute;
+  content: "";
+  background: var(--color);
+  width: 300px;
+  height: 300px;
+  z-index: -1;
+  border-radius: 50%;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  transition: 0.3s all;
 }
 .availability-btn:hover {
-  background: #e29578;
-  color: #fff;
+  color: white;
+}
+.availability-btn:hover::before {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 } 

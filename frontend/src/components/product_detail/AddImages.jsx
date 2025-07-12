@@ -1,11 +1,11 @@
 import React from 'react';
 import './AddImages.css';
-import dress1 from '../../assets/dress1.jpg';
+import dress2 from '../../assets/dress2.jpg';
 
 const AddImages = () => {
   return (
     <div className="add-images-container">
-      <img src={dress1} alt="Dress 1" className="add-images-img" />
+      <img src={dress2} alt="Dress 2" className="add-images-img" />
     </div>
   );
 };

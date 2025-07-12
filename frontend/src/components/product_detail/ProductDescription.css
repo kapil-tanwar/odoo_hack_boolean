@@ -5,6 +5,19 @@
   padding: 1.5rem;
   color: #006d77;
 }
+.product-description-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #006d77;
+  letter-spacing: 0.01em;
+}
+.product-description-text {
+  font-size: 1.05rem;
+  color: #222;
+  line-height: 1.7;
+  margin: 0;
+}
 .product-description-container label {
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
