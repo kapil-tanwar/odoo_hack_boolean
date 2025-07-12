@@ -1,11 +1,8 @@
-import React from 'react'
+import React from 'react';
+import ItemListing from './components/ItemListing';
 
 const App = () => {
-  return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
-  )
-}
+  return <ItemListing />;
+};
 
-export default App
+export default App;
